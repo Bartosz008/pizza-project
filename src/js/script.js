@@ -52,7 +52,38 @@
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
   };
 
+  class Product{
+    constructor (id, data){
+      const thisProduct = this;
+
+      thhisProduct.id = id;
+      thisProduct.data = data;
+
+      thisProduct.renderInMenu();
+
+      console.log('new product:',thisProduct);
+    }
+
+    renderInMenu(){
+      const thisProduct = this;
+/* generate HTML baased on template*/
+
+/* creat element using utils.createElementFromHTML*/
+
+/* FIND MENU CINTAINER*/
+
+/* ad element to Menu*/
+
+
+    }
+  }
+
   const app = {
+    initMenu:function(){
+      const testProduct = new Product();
+      console.log('testProduct:',testProduct);
+  },
+
     init: function(){
       const thisApp = this;
       console.log('*** App starting ***');
@@ -63,5 +94,20 @@
     },
   };
 
-  app.init();
+  app.initMenu{
+    const thisApp = this;
+    console.log('thisApp.data',thisApp.data);
+    for(let productData in thisApp.data.products){
+      new Product(productData, thisApp.data.product[productData]);
+    }
+
+
+  initData: function(){
+    const thisApp = this;
+
+    thisApp.data = dataSource;
+  }
+  thisApp.initData();
+  app.init();thisApp.initMenu();
+}
 }
