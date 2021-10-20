@@ -1,5 +1,7 @@
 /* global Handlebars, utils, dataSource */ // eslint-disable-line no-unused-vars
 
+const { utils } = require("stylelint");
+
 {
   'use strict';
 
@@ -67,16 +69,47 @@
     renderInMenu(){
       const thisProduct = this;
 /* generate HTML baased on template*/
+const generatedHTML = templates.menuProduct(thisProduct.data);
 
 /* creat element using utils.createElementFromHTML*/
+thisProduct.element - utils.createDOMFromHTML(generatedHTML);
 
-/* FIND MENU CINTAINER*/
+/* FIND MENU CoNTAINER*/
 
 /* ad element to Menu*/
-
+menuCintainer.appendChild(thisProduct.element);
 
     }
   }
+  
+  initAccordion(){
+    const thisProduct = this;
+    /* find the clickable trigger (the element that should react to clicking) */
+    const clickableTrigger = ???;
+
+    /* START: add event listener to clickable trigger on event click */
+    clickableTrigger.addEventListener('click', function(event) {
+      /* prevent default action for event */
+      const titleClickHandler = function(event){
+        event.preventDefault();
+        const clickedElement = this;
+
+      /* find active product (product that has active class) */
+      classActive.classList.add('active');
+
+      /* if there is active product and it's not thisProduct.element, remove class active from it */
+
+      /* toggle active class on thisProduct.element */
+    });
+
+  }
+}
+
+const buttonTest = document.getElementById('button-test');
+
+buttonTest.addEventListener('click', function(){
+  console.log('clicked');
+});
 
   const app = {
     initMenu:function(){
