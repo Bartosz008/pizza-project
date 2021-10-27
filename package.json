@@ -28,7 +28,9 @@
     "keywords": [],
     "author": "",
     "license": "ISC",
-    "dependencies": {},
+    "dependencies": {
+        "sass": "^1.43.4"
+    },
     "devDependencies": {
         "rimraf": "^3.0.2",
         "autoprefixer": "^10.2.4",

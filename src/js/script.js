@@ -61,6 +61,7 @@
       thisProduct.renderInMenu();
       thisProduct.getElements();
       thisProduct.initAccordion();
+      thisProduct.initOrderForm();
 
       
 
@@ -113,68 +114,60 @@
 
       });
     }
-  }
 
-  initOrderForm()
-    const thisProduct = this;
-    console.log('initOrderForm');
-    thisProduct.form.addEventListener('submit', function(event){
-      event.preventDefault();
-      thisProduct.processOrder();
-    });
+    initOrderForm() {
     
-    for(let input of thisProduct.formInputs){
-      input.addEventListener('change', function(){
+      const thisProduct = this;
+      console.log('initOrderForm');
+      thisProduct.form.addEventListener('submit', function(event){
+        event.preventDefault();
+        thisProduct.processOrder();
+      });
+    
+      for(let input of thisProduct.formInputs){
+        input.addEventListener('change', function(){
+          thisProduct.processOrder();
+        });
+      }
+    
+      thisProduct.cartButton.addEventListener('click', function(event){
+        event.preventDefault();
         thisProduct.processOrder();
       });
     }
-    
-    thisProduct.cartButton.addEventListener('click', function(event){
-      event.preventDefault();
-      thisProduct.processOrder();
-    });
 
- processOrder()
-    const thisProduct = this;
-    const formData = utilis.serializeFormToObject(thisProduct.form);
-    console.log('formData',formData);
+    processOrder() {
+
+      const thisProduct = this;
+      const formData = utils.serializeFormToObject(thisProduct.form);
+
+      let price = thisProduct.data.price;
+
+      // for every category (param)...
+      for(let paramId in thisProduct.data.params) {
+
+        const param = thisProduct.data.params[paramId];
+
+        // for every option in this category
+        for(let optionId in param.options) {
+          const option = param.options[optionId];
+
+          // check if there is param with a name of paramId in formData and if it includes optionId
+          if(formData[paramId] && formData[paramId].includes(optionId)) {
+            if(!option.default) price += option.price;
+          } else {
+            if(option.default) price -= option.price;
+          }
+
+        }
+      }
   
- // covert form to object structure e.g. { sauce: ['tomato'], toppings: ['olives', 'redPeppers']}
- const formData = utils.serializeFormToObject(thisProduct.form);
- console.log('formData', formData);
-
- // set price to default price
- let price = thisProduct.data.price;
-
- // for every category (param)...
- for(let paramId in thisProduct.data.params) {
-   // determine param value, e.g. paramId = 'toppings', param = { label: 'Toppings', type: 'checkboxes'... }
-   const option = param.options[optionId];
-  console.log(optionId, option);
-
-   // for every option in this categorynpm run watch
-
-    // check if there is param with a name of paramId in formData and if it includes optionId
-    if(formData[paramId] && formData[paramId].includes(optionId)) {
-      // check if the option is not default
-      if(option = paramOption) {option.default = false == !option.default};
-        // add option price to price variable
-      }
-    } else {optionDefault > false == !undefined}
-      // check if the option is default
-      if(option.defaultOption) {
-        // reduce price variable
-      }
+      thisProduct.priceElem.innerHTML = price;
     }
-  
-  }
-
- // update calculated price in the HTML
- thisProduct.priceElem.innerHTML = price;
   }
 
   const app = {
-    initMenu: function () {f
+    initMenu: function () {
       const thisApp = this;
       for (let productData in thisApp.data.products) {
         new Product(productData, thisApp.data.products[productData]);
@@ -200,4 +193,4 @@
   };
 
   app.init();
-
+}
