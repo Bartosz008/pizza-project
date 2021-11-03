@@ -140,6 +140,7 @@
 
       const thisProduct = this;
       const formData = utils.serializeFormToObject(thisProduct.form);
+      const optionImage = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
 
       let price = thisProduct.data.price;
 
