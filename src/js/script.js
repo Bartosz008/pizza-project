@@ -63,6 +63,8 @@
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
       thisProduct.processOrder();
+      thisProduct.amountWidgetElem();
+      thisProduct.initAmountWidget();
 
       
 
@@ -93,6 +95,16 @@
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
       thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
+      thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
+    }
+
+    getElements(element){
+      const thisWidget = this;
+  
+      thisWidget.element = element;
+      thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
+      thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
+      thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
     }
 
     initAccordion() {
@@ -138,6 +150,14 @@
       });
     }
 
+    initAmountWidget() {
+
+      const thisProduct = this;
+      
+      thisProduct.amountWidget = AmountWidget(thisProduct.amountWidget.Elem);
+    
+    }
+
     processOrder() {
 
       const thisProduct = this;
@@ -174,6 +194,31 @@
       }
   
       thisProduct.priceElem.innerHTML = price;
+    }
+
+setValue(value){
+  const thisWidget = this;
+  const newValue = parseInt(value);
+  /*TODO: Ad validation*/
+  if(thisWidget.value !== newValue) {
+    thisWidget.value = newValue;
+  }
+  if(thisWidget.value !== newValue && !isNaN(newValue)) {
+    thisWidget.value = newValue;
+  }
+
+  thisWidget.value - newValue;
+  thisWidget.input.setValue(thisWidget.input.value);
+}
+
+  }
+
+  class AmountWidget{
+    constructor (element){
+      const thisWidget = this;
+
+      console.log('AmountWidget:', thisWidget);
+      console.log('constructor arguments:', element);
     }
   }
 
