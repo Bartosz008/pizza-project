@@ -193,11 +193,16 @@
 
         }
       }
-  
+   /* multiply price by amount */
+   thisProduct.priceSingle = price;
+   price *= thisProduct.amountWidget.value;
+   // update calculated price in the HTML
+
       thisProduct.priceElem.innerHTML = price;
+      
     }
 
-setValue(value){
+    setValue(value){
   const thisWidget = this;
   const newValue = parseInt(value);
   /*TODO: Ad validation*/
@@ -222,6 +227,14 @@ initActions(){
     thisWidget.setValue(thisWidget.value +1 );
   });
 }
+announce(){
+    const thisWidget = this;
+
+    const event = new CustomEvent('updated',{
+      bubbles: true
+    });
+    thisWidget.element.dispatchEvent(event);
+  }
 
  class AmountWidget {
     constructor (element){
