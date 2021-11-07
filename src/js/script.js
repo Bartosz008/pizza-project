@@ -65,6 +65,7 @@
       thisProduct.processOrder();
       thisProduct.amountWidgetElem();
       thisProduct.initAmountWidget();
+      thisProduct.initActions();
 
       
 
@@ -211,6 +212,28 @@ setValue(value){
   thisWidget.input.setValue(thisWidget.input.value);
 }
 
+initActions(){
+  const input = document.querySelector('input');
+  const log = document.getElementById('log');
+  
+  input.addEventListener('change', updateValue);
+  
+  function updateValue(e) {
+    log.textContent = e.target.value;
+  }
+
+  thisWidget.linkDecrease.addEventListener('click', function (event) {
+
+  function thisWidget.linkDecrease(){
+    if (thisWidget.linkDecrease >= 1)
+  }
+
+  else (thisWidget.linkIncrease = 1)
+
+  }
+  
+  if (thisWidget.value <= 0){
+
   }
 
   class AmountWidget{
@@ -221,6 +244,7 @@ setValue(value){
       console.log('constructor arguments:', element);
     }
   }
+
 
   const app = {
     initMenu: function () {
