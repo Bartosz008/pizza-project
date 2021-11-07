@@ -201,47 +201,37 @@ setValue(value){
   const thisWidget = this;
   const newValue = parseInt(value);
   /*TODO: Ad validation*/
-  if(thisWidget.value !== newValue) {
+  if(thisWidget.value !== newValue && !isNaN(newValue) && newValue >= settings.amountWidget.defaultMin && newValue <=settings.amountWidget.defaultMax) {
     thisWidget.value = newValue;
   }
-  if(thisWidget.value !== newValue && !isNaN(newValue)) {
-    thisWidget.value = newValue;
-  }
-
-  thisWidget.value - newValue;
-  thisWidget.input.setValue(thisWidget.input.value);
+  thisWidget.announce();
+  thisWidget.input.value = thisWidget.value;
 }
 
 initActions(){
-  const input = document.querySelector('input');
-  const log = document.getElementById('log');
-  
-  input.addEventListener('change', updateValue);
-  
-  function updateValue(e) {
-    log.textContent = e.target.value;
-  }
+  const thisWidget = this;
+  thisWidget.input.addEventListener('change', function(){
+    thisWidget.setValue(thisWidget.input.value);
+  });
+  thisWidget.linkDecrease.addEventListener('click', function(event){
+    event.preventDefault();
+    thisWidget.setValue(thisWidget.value -1 );
+  });
+  thisWidget.linkIncrease.addEventListener('click',function(event){
+    event.preventDefault();
+    thisWidget.setValue(thisWidget.value +1 );
+  });
+}
 
-  thisWidget.linkDecrease.addEventListener('click', function (event) {
-
-  function thisWidget.linkDecrease(){
-    if (thisWidget.linkDecrease >= 1)
-  }
-
-  else (thisWidget.linkIncrease = 1)
-
-  }
-  
-  if (thisWidget.value <= 0){
-
-  }
-
-  class AmountWidget{
+ class AmountWidget {
     constructor (element){
       const thisWidget = this;
+      thisWidget.getElements(element);
+      thisWidget.setValue(thisWidget.input.value);
+      thisWidget.initActions();
 
-      console.log('AmountWidget:', thisWidget);
-      console.log('constructor arguments:', element);
+      //console.log('AmountWidget:', thisWidget);//
+      //console.log('constructor arguments:', element);//
     }
   }
 
