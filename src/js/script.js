@@ -99,6 +99,17 @@
       thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
     }
 
+    class AmountWidget {
+      constructor (element){
+        const thisWidget = this;
+        thisWidget.getElements(element);
+        thisWidget.setValue(thisWidget.input.value);
+        thisWidget.initActions();
+  
+        //console.log('AmountWidget:', thisWidget);//
+        //console.log('constructor arguments:', element);//
+      }
+
     getElements(element){
       const thisWidget = this;
   
@@ -235,19 +246,7 @@ announce(){
     });
     thisWidget.element.dispatchEvent(event);
   }
-
- class AmountWidget {
-    constructor (element){
-      const thisWidget = this;
-      thisWidget.getElements(element);
-      thisWidget.setValue(thisWidget.input.value);
-      thisWidget.initActions();
-
-      //console.log('AmountWidget:', thisWidget);//
-      //console.log('constructor arguments:', element);//
     }
-  }
-
 
   const app = {
     initMenu: function () {
