@@ -106,17 +106,6 @@ const templates = {
       console.log('new product:', thisProduct);
   }
 
-    class AmountWidget {
-      constructor(element){
-        const thisWidget = this;
-        thisWidget.getElements(element);
-        thisWidget.setValue(thisWidget.input.value);
-        thisWidget.initActions();
-  
-        //console.log('AmountWidget:', thisWidget);//
-        //console.log('constructor arguments:', element);//
-      }
-
     renderInMenu() {
       const thisProduct = this;
 
@@ -261,7 +250,18 @@ const templates = {
   thisWidget.input.value = thisWidget.value;
 }
 
-initActions(){
+class AmountWidget {
+  constructor(element){
+    const thisWidget = this;
+    thisWidget.getElements(element);
+    thisWidget.setValue(thisWidget.input.value);
+    thisWidget.initActions();
+
+    //console.log('AmountWidget:', thisWidget);//
+    //console.log('constructor arguments:', element);//
+  }
+  
+  getElements(){
   const thisWidget = this;
   thisWidget.input.addEventListener('change', function(){
     thisWidget.setValue(thisWidget.input.value);
