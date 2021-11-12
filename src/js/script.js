@@ -248,7 +248,7 @@ const templates = {
   }
   thisWidget.announce();
   thisWidget.input.value = thisWidget.value;
-}
+
 
 class AmountWidget {
   constructor(element){
