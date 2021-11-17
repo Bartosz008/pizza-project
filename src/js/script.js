@@ -240,6 +240,7 @@
       });
       thisProduct.element.dispatchEvent(event);
     }
+
     prepareCartProduct(){
       const thisProduct = this;
       const productSummary = {};
@@ -284,8 +285,6 @@
     }
 
   }
-
-  
 
   class AmountWidget {
     constructor(element){
@@ -383,6 +382,7 @@
         event.preventDefault();
         thisCart.sendOrder();
       });
+      
     }
 
     add(menuProduct){
@@ -397,8 +397,55 @@
       thisCart.update();
     }
 
+    update(){
+      const thisCart = this;
+      thisCart.deliveryFee = 0;
+      thisCart.totalNumber = 0;
+      thisCart.subtotalPrice = 0;
+  
+      for(const product of thisCart.products){
+        thisCart.totalNumber = thisCart.totalNumber + product.amount;
+        thisCart.subtotalPrice = thisCart.subtotalPrice + product.price;
+      }
+  
+      if(thisCart.totalNumber !== 0){
+        thisCart.deliveryFee =settings.cart.defaultDeliveryFee;
+      }
+  
+      thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;
+      thisCart.dom.totalNumber.innerHTML = thisCart.totalNumber;
+      thisCart.dom.subtotalPrice.innerHTML = thisCart.subtotalPrice;
+      thisCart.dom.deliveryFee.innerHTML = thisCart.deliveryFee;
+      for (const totalPrice of thisCart.dom.totalPrice) {
+        totalPrice.innerHTML = thisCart.totalPrice;
+      }
   }
+  remove(){
+    const thisCartProduct = this;
+    const event = new CustomEvent('remove',{
+      bubbles: true,
+      detail: {
+        cartProduct:thisCartProduct,
+      },
+    });
+    thisCartProduct.dom.wrapper.dispatchEvent(event);
+  }
+}
 
+  class CartProduct{
+    constructor(menuProduct, element){
+      const thisCartProduct = this;
+      thisCartProduct.id = menuProduct.id;
+      thisCartProduct.name = menuProduct.name;
+      thisCartProduct.amount = menuProduct.amount;
+      thisCartProduct.priceSingle = menuProduct.priceSingle;
+      thisCartProduct.price = menuProduct.price;
+      thisCartProduct.params = menuProduct.params;
+      thisCartProduct.getElements(element);
+      thisCartProduct.initAmountWidget();
+      thisCartProduct.initActions();
+    }
+  }
   const app = {
     initMenu: function () {
       const thisApp = this;
