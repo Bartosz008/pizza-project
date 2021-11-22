@@ -231,14 +231,8 @@
 
     addToCart(){
       const thisProduct = this;
-      //app.cart.add(thisProduct.prepareCartProduct());
-      const event = new CustomEvent('add-to-cart', {
-        bubbles: true,
-        detail :{
-          product: thisProduct.prepareCartProduct()
-        }
-      });
-      thisProduct.element.dispatchEvent(event);
+      app.cart.add(thisProduct.prepareCartProduct());
+      
     }
 
     prepareCartProduct(){
@@ -282,6 +276,17 @@
       }
   
       return params;
+    }
+
+    remove(){
+      const thisCartProduct = this;
+      const event = new CustomEvent('remove',{
+        bubbles: true,
+        detail: {
+          cartProduct:thisCartProduct,
+        },
+      });
+      thisCartProduct.dom.wrapper.dispatchEvent(event);
     }
 
   }
@@ -420,16 +425,15 @@
         totalPrice.innerHTML = thisCart.totalPrice;
       }
   }
-  remove(){
-    const thisCartProduct = this;
-    const event = new CustomEvent('remove',{
-      bubbles: true,
-      detail: {
-        cartProduct:thisCartProduct,
-      },
-    });
-    thisCartProduct.dom.wrapper.dispatchEvent(event);
+
+    remove(removedProduct){
+    const thisCart = this;
+    const indexOfRemovedProduct = thisCart.products.indexOf(removedProduct);
+    removedProduct.dom.wrapper.remove();
+    thisCart.products.splice(indexOfRemovedProduct, 1);
+    thisCart.update();
   }
+
 }
 
   class CartProduct{
@@ -445,6 +449,18 @@
       thisCartProduct.initAmountWidget();
       thisCartProduct.initActions();
     }
+
+    remove(){
+      const thisCartProduct = this;
+      const event = new CustomEvent('remove',{
+        bubbles: true,
+        detail: {
+          cartProduct:thisCartProduct,
+        },
+      });
+      thisCartProduct.dom.wrapper.dispatchEvent(event);
+    }
+    
   }
   const app = {
     initMenu: function () {
