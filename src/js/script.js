@@ -77,7 +77,13 @@
       defaultDeliveryFee: 20,
     },
   // CODE ADDED END
+  db: {
+    url: '//localhost:3131',
+    products: 'products',
+    orders: 'orders',
+  },
   };
+  
 
   const templates = {
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
@@ -430,17 +436,17 @@
       for (const totalPrice of thisCart.dom.totalPrice) {
         totalPrice.innerHTML = thisCart.totalPrice;
       }
-  }
+    }
 
-  remove(removedProduct){
-    const thisCart = this;
-    const indexOfRemovedProduct = thisCart.products.indexOf(removedProduct);
-    removedProduct.dom.wrapper.remove();
-    thisCart.products.splice(indexOfRemovedProduct, 1);
-    thisCart.update();
-  }
+    remove(removedProduct){
+      const thisCart = this;
+      const indexOfRemovedProduct = thisCart.products.indexOf(removedProduct);
+      removedProduct.dom.wrapper.remove();
+      thisCart.products.splice(indexOfRemovedProduct, 1);
+      thisCart.update();
+    }
 
-}
+  }
 
   class CartProduct{
     constructor(menuProduct, element){
