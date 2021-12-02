@@ -1,20 +1,18 @@
-import { select, classNames, templates, settings } from './../settings.js';
-import { utils } from './../utils.js';
+import {settings, select, classNames, templates} from '../settings.js';
+import { utils } from '../utils.js';
 import CartProduct from './CartProduct.js';
-
 class Cart {
   constructor(element){
     const thisCart = this;
-
     thisCart.products = [];
     thisCart.getElements(element);
     thisCart.initActions();
-    console.log('new Cart', thisCart);
+    //console.log('newCart', thisCart);
   }
   getElements(element){
     const thisCart = this;
     thisCart.dom = {};
-    thisCart.dom.wrapper= element;
+    thisCart.dom.wrapper = element;
     thisCart.dom.toggleTrigger= thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
     thisCart.dom.productList= thisCart.dom.wrapper.querySelector(select.cart.productList);
     thisCart.dom.deliveryFee = thisCart.dom.wrapper.querySelector(select.cart.deliveryFee);
@@ -25,10 +23,8 @@ class Cart {
     thisCart.dom.address = thisCart.dom.wrapper.querySelector(select.cart.address);
     thisCart.dom.phone = thisCart.dom.wrapper.querySelector(select.cart.phone);
   }
-
   initActions(){
     const thisCart = this;
-    console.log(thisCart.dom.toggleTrigger);
     thisCart.dom.toggleTrigger.addEventListener('click',function(){
       thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
     });
@@ -42,9 +38,7 @@ class Cart {
       event.preventDefault();
       thisCart.sendOrder();
     });
-    
   }
-
   add(menuProduct){
     const thisCart = this;
     /* generate HTML based on template */
@@ -56,7 +50,6 @@ class Cart {
     thisCart.products.push(new CartProduct(menuProduct, generatedDom));
     thisCart.update();
   }
-
   update(){
     const thisCart = this;
     thisCart.deliveryFee = 0;
@@ -80,13 +73,13 @@ class Cart {
       totalPrice.innerHTML = thisCart.totalPrice;
     }
   }
-
   remove(removedProduct){
     const thisCart = this;
     const indexOfRemovedProduct = thisCart.products.indexOf(removedProduct);
     removedProduct.dom.wrapper.remove();
     thisCart.products.splice(indexOfRemovedProduct, 1);
     thisCart.update();
+
   }
 
   sendOrder(){
@@ -103,7 +96,7 @@ class Cart {
     payload.products = [];
     for(let prod of thisCart.products) {
       payload.products.push(prod.getData());
-    }        
+    }
     const options = {
       method: 'POST',
       headers: {
@@ -111,9 +104,10 @@ class Cart {
       },
       body: JSON.stringify(payload),
     };
-    
+
     fetch(url, options);
+    console.log(url);
+
   }
 }
-
 export default Cart;
