@@ -1,6 +1,8 @@
 import { templates,select, settings, classNames } from '../settings.js';
-import{utils} from '../utils.js';
+import {utils} from '../utils.js';
 import AmountWidget from './AmountWidget.js';
+import DatePicker from './DatePicker.js';
+import HourPicker from './HourPicker.js';
 
 class Booking {
   constructor(element){
@@ -8,8 +10,6 @@ class Booking {
     thisBooking.selectedTable = [];
     thisBooking.render(element);
     thisBooking.initWidgets();
-    thisBooking.getData();
-
   } 
  
   updateDOM(){
@@ -18,8 +18,6 @@ class Booking {
     thisBooking.date = thisBooking.datePicker.value;
     thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
     
-    
-
     let allAvailable = false;
 
     if(
@@ -69,12 +67,8 @@ class Booking {
     thisBooking.dom.phone = thisBooking.dom.form.querySelector(select.booking.phone);
     thisBooking.dom.address = thisBooking.dom.form.querySelector(select.booking.address);
     thisBooking.dom.starters = thisBooking.dom.form.querySelectorAll(select.booking.starters);
-
-
-
-
-
   }
+
   initWidgets(){
     const thisBooking = this;
     thisBooking.peopleAmount = new AmountWidget(thisBooking.dom.peopleAmount);
@@ -86,9 +80,9 @@ class Booking {
     thisBooking.dom.hoursAmount.addEventListener('updated',function(){
       thisBooking.removeTableSelection();
     });
-    thisBooking.dom.wrapper.addEventListener('updated', function(){
+    /*thisBooking.dom.wrapper.addEventListener('updated', function(){
       thisBooking.updateDOM();
-    });
+    });*/
     thisBooking.dom.floorPlan.addEventListener('click',function(event){
       thisBooking.initTables(event);
     });
@@ -96,6 +90,9 @@ class Booking {
       event.preventDefault();
       thisBooking.sendBooking();
     });
+
+    thisBooking.datePicker = new DatePicker(thisBooking.dom.datePicker);
+    thisBooking.hourPicker = new HourPicker(thisBooking.dom.hourPicker);
   }
 }
 
