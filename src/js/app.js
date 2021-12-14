@@ -10,7 +10,6 @@ const app = {
     thisApp.navLinks = document.querySelectorAll(select.nav.links);
     const idFromHash = window.location.hash.replace('#','');
     
-
     let pageMatchingHash = thisApp.pages[0].id;
     for(let page of thisApp.pages){
       if(page.id == idFromHash){
@@ -88,9 +87,8 @@ const app = {
   },
   initBooking: function(){
     const thisApp = this;
-    const bookingWidget = document.querySelector(select.containerOf.booking);
-    
-    thisApp.Booking = new Booking(bookingWidget);
+    thisApp.wrapper = document.querySelector(select.containerOf.booking);
+    thisApp.bookingWidget = new Booking(thisApp.wrapper);
 
   },
   
@@ -110,3 +108,4 @@ const app = {
 
 };
 app.init();
+app.initCart();

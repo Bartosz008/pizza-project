@@ -156,6 +156,11 @@
       }
   
     }
+    //class for selected table
+    &.selected {
+      background: green;
+      opacity: 0.5;
+    }
   
     &.booked {
       cursor: not-allowed;
@@ -174,9 +179,7 @@
   
     }
     
-    &.selected {
-      background-color: rgb(77, 145, 28);
-    }
+    
   }
   
   [data-table="1"] {
